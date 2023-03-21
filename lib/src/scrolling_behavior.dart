@@ -27,8 +27,7 @@ class SlidableScrollingBehavior extends StatefulWidget {
   final Widget child;
 
   @override
-  _SlidableScrollingBehaviorState createState() =>
-      _SlidableScrollingBehaviorState();
+  _SlidableScrollingBehaviorState createState() => _SlidableScrollingBehaviorState();
 }
 
 class _SlidableScrollingBehaviorState extends State<SlidableScrollingBehavior> {
@@ -58,7 +57,7 @@ class _SlidableScrollingBehaviorState extends State<SlidableScrollingBehavior> {
 
   void addScrollingNotifierListener() {
     if (widget.closeOnScroll) {
-      scrollPosition = Scrollable.of(context)?.position;
+      scrollPosition = Scrollable.maybeOf(context)?.position;
       if (scrollPosition != null) {
         scrollPosition!.isScrollingNotifier.addListener(handleScrollingChanged);
       }
@@ -70,9 +69,7 @@ class _SlidableScrollingBehaviorState extends State<SlidableScrollingBehavior> {
   }
 
   void handleScrollingChanged() {
-    if (widget.closeOnScroll &&
-        scrollPosition != null &&
-        scrollPosition!.isScrollingNotifier.value) {
+    if (widget.closeOnScroll && scrollPosition != null && scrollPosition!.isScrollingNotifier.value) {
       widget.controller.close();
     }
   }
